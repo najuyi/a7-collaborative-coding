@@ -3,3 +3,17 @@ title: "index"
 output: html_document
 ---
 
+Your index.Rmd file will be used to actually generate your report. However, it needs the functions written in other files in order to work (see below). To read in a function you've written in another file, you can use the source function. This is similar to using the library function, but with a file that you've written:
+
+# Read in functions from another file:
+source("scripts/FILE-NAME.R")
+In the Markdown document created, you should leverage the functions written in the other files to do the following:
+
+Write a short summary paragraph that includes information calculated by your summary information function
+Render your first chart
+Render your second chart
+In order to render those charts, you'll need to read in your data in your Readme.md file, and pass your data to those functions. You can read in the file from it's location in the repository (you don't need to copy the file to your repo):
+
+# Note, there's a token because it's a private repo:
+data <- read.csv("https://raw.githubusercontent.com/INFO-498F/a7-collaborative-coding/master/data/intro_survey_data.csv?token=ABT2upFQZIFSpEQFgfDJrKeXe8ijXgj_ks5Ww6VIwA%3D%3D")
+If it isn't clear how to these pieces fit together, reach out to your TA.
