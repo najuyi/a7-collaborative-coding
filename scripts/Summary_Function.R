@@ -1,5 +1,5 @@
 library(dplyr)
-
+# Creates a summary table
 sum_func <- function(dataset){
   # Finds the most numerous class standing
   standing <- dataset %>% select(What.is.your.current.class.standing.) %>% group_by(What.is.your.current.class.standing.) %>% 
