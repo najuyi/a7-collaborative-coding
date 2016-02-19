@@ -1,7 +1,4 @@
 library(dplyr)
-library(plot_ly)
-setwd("C:/Users/Administrator.UWIT-H9T8A7AKQR/Documents/Code/INFO 498F/a7-collaborative-coding/scripts")
-data <- read.csv("https://raw.githubusercontent.com/INFO-498F/a7-survey-data/master/intro_survey_data.csv", stringsAsFactors = FALSE)
 
 sum_func <- function(dataset){
   # Finds the most numerous class standing
@@ -22,10 +19,14 @@ sum_func <- function(dataset){
   pet <- dataset %>% select(Do.you.consider.yourself.) %>% group_by(Do.you.consider.yourself.) %>% 
     summarise(cat_dog=sum(Do.you.consider.yourself.=="Neither", Do.you.consider.yourself.=="Both!", 
                           Do.you.consider.yourself.=="A cat person....", Do.you.consider.yourself.=="A dog person..."))
-  return(list(standing, applying, os, pet))
+  table <- left_join(standing, applying)
+  final <- data.frame(table, os, pet)
+  names(final)[1] <- "Class Standing"
+  names(final)[2] <- "Students in Class"
+  names(final)[3] <- "Number Applying to Info"
+  names(final)[4] <- "Type of OS"
+  names(final)[5] <- "Number of Users"
+  names(final)[6] <- "Are You A pet person?"
+  names(final)[7] <- "Number of Pet People"
+  return(final)
 }
-View(sum_func(data))
-
-seahawks <- data %>% select(Are.you.a.Seahawks.fan.) %>% group_by(Are.you.a.Seahawks.fan.) %>% 
-  summarise(seahawks_fan=sum(Are.you.a.Seahawks.fan.=="No", Are.you.a.Seahawks.fan.=="Yes", Are.you.a.Seahawks.fan.=="YES!"))
-View(seahawks)
