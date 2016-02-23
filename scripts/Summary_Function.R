@@ -1,5 +1,4 @@
 library(dplyr)
-
 # Creates a summary table
 sum_func <- function(dataset){
   # Finds the most numerous class standing
@@ -36,8 +35,4 @@ sum_func <- function(dataset){
   target <- c("Freshman", "Sophomore", "Junior", "Senior")
   return(final)
 }
-<<<<<<< 0cc16fb678e40af149105cb89c27a1182e910c79
 
-=======
-ds <-sum_func(data)
->>>>>>> added chart 1 file
