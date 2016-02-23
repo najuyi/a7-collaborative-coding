@@ -21,6 +21,10 @@ sum_func <- function(dataset){
                           Do.you.consider.yourself.=="A cat person....", Do.you.consider.yourself.=="A dog person..."))
   table <- left_join(standing, applying)
   final <- data.frame(table, os, pet)
+  # Orders the table by class standing
+  target <- c("Freshman", "Sophomore", "Junior", "Senior")
+  final <- final[match(target, final$What.is.your.current.class.standing.),]
+  # renames the columns into a readable format
   names(final)[1] <- "Class Standing"
   names(final)[2] <- "Students in Class"
   names(final)[3] <- "Number Applying to Info"
@@ -28,5 +32,7 @@ sum_func <- function(dataset){
   names(final)[5] <- "Number of Users"
   names(final)[6] <- "Are You A pet person?"
   names(final)[7] <- "Number of Pet People"
+  target <- c("Freshman", "Sophomore", "Junior", "Senior")
   return(final)
 }
+
