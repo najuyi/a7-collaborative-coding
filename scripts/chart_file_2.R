@@ -1,18 +1,56 @@
-library(plotly)
+# This function will make a visualization out of any dataset.
+
+# Requires the library dplyr and plotly.
 library(dplyr)
+library(plotly)
+
+# Read in the "intro survey data" dataset
+data <- read.csv("data/intro_survey_data.csv")
+
+# Uses the Summary_Function script to help summarize the datatable.
+source("scripts/Summary_Function.r")
+
 
 build_chart <- function(data_set) {
-  PC  <- data_set %>% filter(What.operating.system.do.you.typically.use. == "PC")
-  Mac <- data_set %>% filter(What.operating.system.do.you.typically.use. == "Mac")
   
-  new_chart <- plot_ly(y = freshman$How.many.countries.have.you.visited.in.your.life., 
-                       type = "box", 
-                       name = "PC") %>%
-    add_trace(y = sophomore$How.many.countries.have.you.visited.in.your.life., 
-              type = "box", 
-              name = "Mac") %>%
-    layout(yaxis = list(title = "Countries Visited")
+  #creates the labels for the x axis
+  animals <- c("Cat Person", "Dog Person", "Both!", "Neither")
+  
+  # gets the desired data to manipulate
+    summary <- data_set %>% group_by(Do.you.consider.yourself.) %>% 
+    summarise(
+      mac = sum(What.operating.system.do.you.typically.use. == "Mac"), 
+      windows = sum(What.operating.system.do.you.typically.use. == "Windows"), 
+      other = sum(What.operating.system.do.you.typically.use. == "Linux") +  sum(What.operating.system.do.you.typically.use. == "Other: Windows at home, Linux (Ubuntu) at work"))   
+
+  # Create new plotly graph.
+  new_graphic <- plot_ly(
+    x = animals,
+    y = summary$mac,
+    name = "Mac",
+    type = "bar",
+    marker = list(color = toRGB("skyblue2"))
+  ) %>%
+    add_trace(
+      x = animals,
+      y = summary$windows,
+      name = "Windows",
+      type = "bar",
+      marker = list(color = toRGB("darkorange3"))
+    ) %>%
+    add_trace(
+      x = animals,
+      y = summary$other,
+      name = "Other",
+      type = "bar",
+      marker = list(color = toRGB("green"))
+    ) %>%
+    layout(
+      barmode = "stack", 
+      xaxis = list(title = "Your Favorite Animal?"), 
+      yaxis = list(title = "OS"), 
+      legend = list(traceorder = "grouped")
     )
+  return(new_graphic)
   
-  return(new_chart)
 }
