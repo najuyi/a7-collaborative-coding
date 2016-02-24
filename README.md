@@ -12,6 +12,7 @@ Before submitting your assignment, please create a `Readme.md` file **in your re
 ##### 2. Approximately how many hours did it take you to complete this challenge?
 
 > 4
+
 ##### 3. On a scale of 1 (too easy) to 10 (too challenging), how difficult was this challenge?
 
 > 5
